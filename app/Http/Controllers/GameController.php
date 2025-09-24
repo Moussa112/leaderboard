@@ -10,9 +10,9 @@ use Inertia\Inertia;
 
 class GameController extends Controller
 {
-    public function __construct(readonly protected EloService $elo)
+    public function __construct(readonly protected EloService $eloService)
     {
-        $this->middleware('auth');
+        
     }
 
     public function create()
@@ -34,7 +34,7 @@ class GameController extends Controller
         $winner = User::findOrFail($data['winner_id']);
         $loser = User::findOrFail($data['loser_id']);
 
-        $changes = Elo::recordGale($winner, $loser);
+        $changes = $this->eloService->recordGame($winner, $loser);
 
         $game = Game::create([
             'winner_id' => $winner->id,

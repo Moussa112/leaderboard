@@ -13,7 +13,6 @@ class EloService
         return 1 / (1 + pow(10, ($ratingB - $ratingA) / 400));
     }
 
-
     public function newRating($rating, $expected, $score)
     {
         return (int) round($rating + $this->k * ($score - $expected));

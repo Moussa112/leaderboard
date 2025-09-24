@@ -10,7 +10,7 @@ Route::get('dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/games/create', [GameController::class, 'create'])->name('games.create');
+    //Route::get('/games/create', [GameController::class, 'create'])->name('games.create');
     Route::get('/leaderboard', [LeaderboardController::class, 'index'])->name('leaderboard');
     Route::post('/games', [GameController::class, 'store'])->name('games.store');
 });
