@@ -1,25 +1,52 @@
-# Laravel + Vue Starter Kit
+# Leaderboard
 
-## Introduction
+## Important
 
-Our Vue starter kit provides a robust, modern starting point for building Laravel applications with a Vue frontend using [Inertia](https://inertiajs.com).
+I've created this project in a windows environment without docker. :( 
 
-Inertia allows you to build modern, single-page Vue applications using classic server-side routing and controllers. This lets you enjoy the frontend power of Vue combined with the incredible backend productivity of Laravel and lightning-fast Vite compilation.
+When installing front end dependencies you might stumble on issues with lightningcss-win32-x64-msvc. You can remove this if you're working in a mac/linux environment.
 
-This Vue starter kit utilizes Vue 3 and the Composition API, TypeScript, Tailwind, and the [shadcn-vue](https://www.shadcn-vue.com) component library.
+(this is also the reason the github actions fail since the runner is in linux)
 
-## Official Documentation
+## Installing
 
-Documentation for all Laravel starter kits can be found on the [Laravel website](https://laravel.com/docs/starter-kits).
+### Clone repository
+You can simply clone the project to your local storage with following command:
+```
+git clone https://github.com/moussa112/leaderboard.git
+```
+### Setup env file
+Copy .env.example into .env and configure database credentials
 
-## Contributing
+### Install backend
+Navigate to the project's root directory using terminal and run:
+```
+composer install
+```
+### Setup encryption key
+```
+php artisan key:generate
+```
+### Setup database
+Run migration and seeders with initial set of users and some games
+```
+php artisan migrate --seed
+```
+### Start local server
+```
+php artisan serve
+```
+## Install front end
+Navigate to the project's root directory using terminal and run:
+```
+npm install
+```
+### Start vite server for Laravel frontend
+```
+npm run dev
+```
 
-Thank you for considering contributing to our starter kit! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## License
-
-The Laravel + Vue starter kit is open-sourced software licensed under the MIT license.
+## Tests
+```
+php artisan test
+```
