@@ -1,7 +1,8 @@
 <script setup>
-    import { useForm } from "@inertiajs/vue3";
+    import { useForm, Link, router } from "@inertiajs/vue3";
     import { ref } from "vue";
     import { computed } from "vue";
+    import { logout } from '@/routes';
     import { inject } from 'vue';
 
     const props = defineProps({
@@ -67,6 +68,10 @@
             }
         );
     };
+
+    const handleLogout = () => {
+        router.flushAll();
+    };
 </script>
 
 <template>
@@ -74,12 +79,21 @@
         <div class="flex justify-between items-center py-3">
             <h1 class="text-3xl font-bold">Leaderboard</h1>
 
-            <button @click="openDialog" class="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700">
-                New game
-            </button>
+            <Link 
+                :href="logout()"
+                as="button"
+                data-test="logout-button"
+                @click="handleLogout" 
+                class="px-4 py-2 border-2 border-indigo-600 text-indigo-600 rounded hover:bg-indigo-600 hover:text-white"
+            >
+                Logout
+            </Link>
         </div>
 
-          <!-- Top 3 Hero Section -->
+        <button @click="openDialog" class="px-4 py-2 mb-5 bg-indigo-600 text-white rounded hover:bg-indigo-700">
+            New game
+        </button>
+
         <div class="flex justify-between mb-10">
             <template v-for="(group, idx) in top3Groups" :key="idx">
                 <div v-for="user in group.users" :key="user.id" class="flex flex-col items-center">
