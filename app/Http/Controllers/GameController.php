@@ -10,7 +10,7 @@ use Inertia\Inertia;
 
 class GameController extends Controller
 {
-    public function __construct(readonly protected EloService $eloService)
+    public function __construct(protected readonly EloService $eloService)
     {
         //use laravel service container to handle dependency injection
     }
