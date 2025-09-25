@@ -40,8 +40,12 @@
         return ''
     }
 
+    // Should make a seperate dialog component and make it flexible to be able to inject any form into it but ..
+    // for this test this is ok :)
+
     const headers = ["title", "body", "actions"];
     const dialog = ref(null);
+    const flashMessage = ref('')
     const showDialog = ref(false);
     const form = useForm({
         winner_id: '',
@@ -57,18 +61,25 @@
     };
 
     const submit = () => {
+        if (form.winner_id === form.loser_id) {
+            flashMessage.value = "Winner and loser cannot be the same player.";
+            return;
+        }
+
         form.post(
-            //inject("games.store"),
+            //route("games.store"), // should use Ziggy to be able to use laravel routes
             '/games', 
             {
                 onSuccess: () => {
                     closeDialog();
                     form.reset();
+                    flashMessage.value = "Game recorded successfully!";
                 },
             }
         );
     };
 
+    // Should be a seperate component and used once in a layout wrapper
     const handleLogout = () => {
         router.flushAll();
     };
@@ -148,6 +159,10 @@
 
                 <div class="bg-white rounded-2xl shadow-xl w-full max-w-md p-6 relative z-40">
                     <h2 class="text-xl font-semibold mb-6 text-gray-800">Add New Game</h2>
+
+                    <div v-if="flashMessage" class="mb-4 p-3 rounded bg-red-100 text-red-700">
+                        {{ flashMessage }}
+                        </div>
 
                     <form @submit.prevent="submit" class="space-y-4">
                         <div>
