@@ -12,7 +12,7 @@ class GameController extends Controller
 {
     public function __construct(readonly protected EloService $eloService)
     {
-        
+        //use laravel service container to handle dependency injection
     }
 
     public function create()
@@ -26,6 +26,7 @@ class GameController extends Controller
 
     public function store(Request $request)
     {
+        // use a seperate request
         $data = $request->validate([
             'winner_id' => 'required|exists:users,id',
             'loser_id' => 'required|exists:users,id|different:winner_id',
